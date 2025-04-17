@@ -1,98 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//   const inputText = document.getElementById("input-text");
-//   const ulList = document.getElementById("ul-list");
-//   const itemCount = document.getElementById("item-count");
-
-//   const filterAllBtn = document.getElementById("filter-all");
-//   const filterActiveBtn = document.getElementById("filter-active");
-//   const filterCompletedBtn = document.getElementById("filter-completed");
-//   const clearCompletedBtn = document.getElementById("clear-completed");
-
-//   let todos = [];
-
-//   function renderTodos(filter = "all") {
-//     ulList.innerHTML = "";
-
-//     let filteredTodos = todos;
-//     if (filter === "active") {
-//       filteredTodos = todos.filter(todo => !todo.completed);
-//     } else if (filter === "completed") {
-//       filteredTodos = todos.filter(todo => todo.completed);
-//     }
-
-//     filteredTodos.forEach((todo, index) => {
-//       const li = document.createElement("li");
-//       li.className = "todo-item";
-//       if (todo.completed) li.classList.add("completed");
-
-//       const checkbox = document.createElement("input");
-//       checkbox.type = "checkbox";
-//       checkbox.checked = todo.completed;
-//       checkbox.addEventListener("change", () => {
-//         todo.completed = checkbox.checked;
-//         updateCount();
-//         renderTodos(getActiveFilter());
-//       });
-
-//       const span = document.createElement("span");
-//       span.textContent = todo.text;
-
-//       const deleteBtn = document.createElement("button");
-//       deleteBtn.textContent = "❌";
-//       deleteBtn.className = "delete-btn";
-//       deleteBtn.addEventListener("click", () => {
-//         todos.splice(index, 1);
-//         updateCount();
-//         renderTodos(getActiveFilter());
-//       });
-
-//       li.appendChild(checkbox);
-//       li.appendChild(span);
-//       li.appendChild(deleteBtn);
-
-//       ulList.appendChild(li);
-//     });
-
-//     updateCount();
-//   }
-
-//   function updateCount() {
-//     const remaining = todos.filter(todo => !todo.completed).length;
-//     itemCount.textContent = `${remaining} item${remaining !== 1 ? "s" : ""} left`;
-//   }
-
-//   function getActiveFilter() {
-//     if (filterActiveBtn.classList.contains("active")) return "active";
-//     if (filterCompletedBtn.classList.contains("active")) return "completed";
-//     return "all";
-//   }
-
-//   function setActiveFilter(button) {
-//     document.querySelectorAll(".filters button").forEach(btn => btn.classList.remove("active"));
-//     button.classList.add("active");
-//     renderTodos(getActiveFilter());
-//   }
-
-//   inputText.addEventListener("keyup", (e) => {
-//     if (e.key === "Enter" && inputText.value.trim() !== "") {
-//       todos.push({ text: inputText.value.trim(), completed: false });
-//       inputText.value = "";
-//       renderTodos(getActiveFilter());
-//     }
-//   });
-
-//   filterAllBtn.addEventListener("click", () => setActiveFilter(filterAllBtn));
-//   filterActiveBtn.addEventListener("click", () => setActiveFilter(filterActiveBtn));
-//   filterCompletedBtn.addEventListener("click", () => setActiveFilter(filterCompletedBtn));
-
-//   clearCompletedBtn.addEventListener("click", () => {
-//     todos = todos.filter(todo => !todo.completed);
-//     renderTodos(getActiveFilter());
-//   });
-
-//   // Initial render
-//   renderTodos();
-// });
 
 
 
@@ -109,19 +14,20 @@ let count = 0;
     itemCount.textContent = listContainer.children.length;
 } 
 
-function deleteToDo(id) {
-    toDoList = toDoList.filter(item => item.id !== id);
+function deleteToDo(id) {////in this case dlete item-id by function (id) and filter is define all todolists
+    // console.log("dlete called witth id", id);
+    toDoList = toDoList.filter(item => item.id !== id);//removes an item from the toDoList array by its id.
+    // console.log("loged is todolist",toDoList);
+    
+    
     renderToDoList(toDoList);
-}
-function checkToDo(id) {
+} 
 
-     console.log("toDo"); 
-    renderToDoList(toDoList);
-    // toDoList = toDoList.map(item => item.id !==id{})
-    console.log("todo --", toDoList, id)
+
+function checkToDo(id) {///////in this function item-id check by function (id) and show index in array form
+    // console.log("toDo checked with id:" ,id);  
     let itemIndex = toDoList.findIndex(item => item.id === id);
-    console.log("itemIndex", itemIndex)
-
+    // console.log("itemIndex", itemIndex)
     toDoList[itemIndex].checked = !toDoList[itemIndex].checked;
 
     renderToDoList(toDoList)
@@ -129,19 +35,20 @@ function checkToDo(id) {
 }
 
 function renderToDoList(list) {
-    console.log("check");
+    // console.log("check");////check for randerlist how many time run randerlist
     listContainer.innerHTML = "";
     list.forEach((item, index) => {
-        // 
-        console.log("item >>>>", item, index);
+        //console.log("item >>>>", item, index);////help of loop check item true/false and index check
         
         let li = document.createElement("li");
         li.textContent = item.name;
         li.setAttribute("data-id", item.id);
+        // console.log("data-id done" ,li);
+        
         
 
         let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";  // Example text for the span
+        checkbox.type = "checkbox";  
         checkbox.classList = "checkbox";
         checkbox.checked = item.checked;
         checkbox.onclick = () => checkToDo(item.id)
